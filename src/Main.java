@@ -1,6 +1,10 @@
+import java.util.Scanner;
+
 public class Main {
 
-    static double[][] invertedMatrix(double[][] mat) {       // by the Adjusted Quantity Method
+    static Scanner scan = new Scanner(System.in);
+
+    public static double[][] getInverseMatrix(double[][] mat) {       // using the adjoint matrix
         double det = getDeterminant(mat);
         double[][] invMatrix = new double[mat.length][mat.length];
 
@@ -13,7 +17,7 @@ public class Main {
         return invMatrix;
     }
 
-    static double getDeterminant(double[][] mat) {   // according to Laplace's rule with Adjusted minors
+    public static double getDeterminant(double[][] mat) {   // by the Laplace expansion with Adjusted minors
         double det = 0;
 
         if (mat.length == 1) {
@@ -28,7 +32,7 @@ public class Main {
         return det;
     }
 
-    static double[][] getMinor(double[][] mat, int row, int column) {     // returns a minor matrix of mat for i=row, j=column
+    public static double[][] getMinor(double[][] mat, int row, int column) {   // returns minor matrix of mat for i=row and j=column
         double[][] minor = new double[mat.length - 1][mat.length - 1];
 
         for (int i = 0; i < mat.length - 1; i++) {
@@ -42,7 +46,7 @@ public class Main {
         return minor;
     }
 
-    static double[][] multiplyMatrices(double[][] mat1, double[][] mat2) {
+    public static double[][] multiplyMatrices(double[][] mat1, double[][] mat2) {
         double[][] product = new double[mat1.length][mat2[0].length];
 
         for (int i = 0; i < mat1.length; i++) {
@@ -57,7 +61,7 @@ public class Main {
         return product;
     }
 
-    static double[][] sumMatrices(double[][] mat1, double[][] mat2) {
+    public static double[][] sumMatrices(double[][] mat1, double[][] mat2) {
         double[][] sum = new double[mat1.length][mat2[0].length];
 
         for (int i = 0; i < mat1.length; i++) {
@@ -70,7 +74,7 @@ public class Main {
     }
 
 
-    static double[][] subtractMatrices(double[][] mat1, double[][] mat2) {
+    public static double[][] subtractMatrices(double[][] mat1, double[][] mat2) {
         double[][] difference = new double[mat1.length][mat2[0].length];
 
         for (int i = 0; i < mat1.length; i++) {
@@ -82,7 +86,7 @@ public class Main {
         return difference;
     }
 
-    static void printMatrix(double[][] mat) {
+    public static void printMatrix(double[][] mat) {
         for (int i = 0; i < mat.length; i++) {
             for (int j = 0; j < mat[0].length; j++) {
                 if (mat[i][j] == 0) {
@@ -98,7 +102,21 @@ public class Main {
         }
     }
 
+    public static double[][] inputMatrix(int row, int column) {
+        double[][] matrix = new double[row][column];
+
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                System.out.printf("row %2d, col %2d  :  ", (i + 1), (j + 1));
+                matrix[i][j] = scan.nextDouble();
+            }
+        }
+
+        return matrix;
+    }
+
     public static void main(String[] args) {
+
         double[][] a = {
                 //{ 5, 5, 0, 1, 0},           // det = -2040
                 //{ 5, -1, 0, 3, 3},
@@ -145,15 +163,17 @@ public class Main {
                 //{7, 8, -5,},
         };
 
-        double[][] resultMatrix = multiplyMatrices(x, y);
+        //double[][] resultMatrix = multiplyMatrices(x, y);
 
         //double[][] resultMatrix = sumMatrices (x, y);
 
         //double[][] resultMatrix = subtractMatrices (x, y);
 
-        //double[][] resultMatrix = invertedMatrix (a);
+        //double[][] resultMatrix = getInverseMatrix (a);
 
-        printMatrix(resultMatrix);
+        //printMatrix(resultMatrix);
+
+        printMatrix(inputMatrix(3,2));
 
         //System.out.println("...............  " + getDeterminant (a));
     }
