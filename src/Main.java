@@ -1,6 +1,6 @@
 public class Main {
 
-    static double[][] invertedMatrix(double[][] mat) {       // по Метода на адюнгираните количества
+    static double[][] invertedMatrix(double[][] mat) {       // by the Adjusted Quantity Method
         double det = getDeterminant(mat);
         double[][] invMatrix = new double[mat.length][mat.length];
 
@@ -13,10 +13,10 @@ public class Main {
         return invMatrix;
     }
 
-    static double getDeterminant(double[][] mat) {   // по Правилото на Лаплас
-        double det = 0;                              // с Адюнгирани минори  +  рекурсия
-                                                     // предимства: простота; няма деление и загуба на точност;
-        if (mat.length == 1) {                       // недостатък: при много големи матрици не е най-ефективния
+    static double getDeterminant(double[][] mat) {   // according to Laplace's rule with Adjusted minors
+        double det = 0;
+
+        if (mat.length == 1) {
             det = mat[0][0];
         }
         else {
@@ -28,13 +28,13 @@ public class Main {
         return det;
     }
 
-    static double[][] getMinor(double[][] mat, int row, int column) {     // връща минорна матрица на mat
-        double[][] minor = new double[mat.length - 1][mat.length - 1];    // за i=row и j=column
+    static double[][] getMinor(double[][] mat, int row, int column) {     // returns a minor matrix of mat for i=row, j=column
+        double[][] minor = new double[mat.length - 1][mat.length - 1];
 
         for (int i = 0; i < mat.length - 1; i++) {
-            int x = (2 * i + 1) / (i + row + 1);            // аналогично на: x = (i<row) ? 0 : 1;
+            int x = (2 * i + 1) / (i + row + 1);           // similar to:  x = (i<row) ? 0 : 1;
             for (int j = 0; j < mat.length - 1; j++) {
-                int y = (2 * j + 1) / (j + column + 1);     // аналогично на: y = (j<column) ? 0 : 1;
+                int y = (2 * j + 1) / (j + column + 1);    // similar to:  y = (j<column) ? 0 : 1;
                 minor[i][j] = mat[i + x][j + y];
             }
         }
