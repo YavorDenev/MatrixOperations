@@ -61,6 +61,23 @@ public class Main {
         return product;
     }
 
+    public static void sumMatrices() {
+        System.out.println("Enter the number of rows of the two matrices: ");
+        int rows = inputPositiveInteger();
+        System.out.println("Enter the number of columns of the two matrices: ");
+        int columns = inputPositiveInteger();
+        System.out.println("Enter the first matrix: ");
+        double[][] mat1 = inputMatrix(rows, columns);
+        System.out.println("Enter the second matrix: ");
+        double[][] mat2 = inputMatrix(rows, columns);
+        System.out.println("\nThe first matrix is :  ");
+        printMatrix(mat1);
+        System.out.println("\nThe second matrix is :  ");
+        printMatrix(mat2);
+        System.out.println("\nThe sum of the matrices is :  ");
+        printMatrix(sumMatrices(mat1, mat2));
+    }
+
     public static double[][] sumMatrices(double[][] mat1, double[][] mat2) {
         double[][] sum = new double[mat1.length][mat2[0].length];
 
@@ -73,6 +90,22 @@ public class Main {
         return sum;
     }
 
+    public static void subtractMatrices() {
+        System.out.println("Enter the number of rows of the two matrices: ");
+        int rows = inputPositiveInteger();
+        System.out.println("Enter the number of columns of the two matrices: ");
+        int columns = inputPositiveInteger();
+        System.out.println("Enter the first matrix: ");
+        double[][] mat1 = inputMatrix(rows, columns);
+        System.out.println("Enter the second matrix: ");
+        double[][] mat2 = inputMatrix(rows, columns);
+        System.out.println("\nThe first matrix is :  ");
+        printMatrix(mat1);
+        System.out.println("\nThe second matrix is :  ");
+        printMatrix(mat2);
+        System.out.println("\nThe difference of the matrices is :  ");
+        printMatrix(subtractMatrices(mat1, mat2));
+    }
 
     public static double[][] subtractMatrices(double[][] mat1, double[][] mat2) {
         double[][] difference = new double[mat1.length][mat2[0].length];
@@ -115,9 +148,64 @@ public class Main {
         return matrix;
     }
 
-    public static void main(String[] args) {
+    public static int inputPositiveInteger() {
+        while ( ! (scan.hasNextInt()) ) {
+            System.out.println("Invalid input. Try again!");
+            String s = scan.next();
+        }
+        int num = scan.nextInt();
+        while (num < 1) {
+            System.out.println("Invalid input number. Try again!");
+            num = inputPositiveInteger();
+        }
 
-        double[][] a = {
+        return num;
+    }
+
+    public static void enterChoice() {
+        System.out.print("Enter 1, 2, 3, 4 or 5 ... ");
+        String choice = scan.next();
+        switch (choice) {
+            case "1" -> {
+                sumMatrices();
+                showMainMenu();
+            }
+            case "2" -> {
+                subtractMatrices();
+                showMainMenu();
+            }
+            //case "3" -> {
+                //multiplyMatrices();
+                //showMainMenu();
+            //}
+            //case "4" -> {
+                //showSquareMatrixMenu();
+                //showMainMenu();
+            //}
+            case "5" -> System.out.println("Good bye!");
+            default -> {
+                System.out.println("Invalid input. Try again!");
+                enterChoice();
+            }
+        }
+    }
+
+    public static void showMainMenu() {
+        System.out.println("\nWhat is your choice? " +
+                "\n\t1. Sum of two matrices;" +
+                "\n\t2. Difference of two matrices;" +
+                "\n\t3. Product of two matrices;" +
+                "\n\t4. Square matrix operations;" +
+                "\n\t5. Exit.");
+        enterChoice();
+    }
+
+    public static void main(String[] args) {
+        System.out.println("\nThis is a simple matrix calculator.");
+        showMainMenu();
+
+
+        //double[][] a = {
                 //{ 5, 5, 0, 1, 0},           // det = -2040
                 //{ 5, -1, 0, 3, 3},
                 //{ 2, 2, 6, 0, 0},
@@ -132,37 +220,39 @@ public class Main {
                 //{0, 0, 4,},
                 //{3, 0, 0,},
 
-                {10, 15, 77, 5, 0, 72,},      //   det = -76953
-                {20, 57, 30, 6, 2, 3,},
-                {37, 56, 85, 3, 3, 4,},
-                {5, 3, 11, 2, 4, 5,},
-                {0, 1, 2, 3, 5, 6,},
-                {1, 2, 3, 4, 5, 7,},
+                //{10, 15, 77, 5, 0, 72,},      //   det = -76953
+                //{20, 57, 30, 6, 2, 3,},
+                //{37, 56, 85, 3, 3, 4,},
+                //{5, 3, 11, 2, 4, 5,},
+                //{0, 1, 2, 3, 5, 6,},
+                //{1, 2, 3, 4, 5, 7,},
 
                 //{1, 2,},                   //   det = -2
                 //{3, 4,},
 
                 //{9}                          //   det = 9
-        };
+        //};
 
-        double[][] x = {
-                {-99, -99.9, -99,},
-                {89, -3, 1,},
-                {44, -13, 12,},
-                {6, 8, 1,},
-        };
+        //double[][] x = {
+                //{-99, -99.9, -99,},
+                //{89, -3, 1,},
+                //{44, -13, 12,},
+                //{6, 8, 1,},
+        //};
 
-        double[][] y = {
-                {99, 88.33, 3, 54, 5,},
-                {99, 6, 0, 53, 22,},
-                {99, 9, 8, -73, -2,},
+        //double[][] y = {
+                //{99, 88.33, 3, 54, 5,},
+                //{99, 6, 0, 53, 22,},
+                //{99, 9, 8, -73, -2,},
 
                 //{2, -6, -3,},
                 //{12, -11, 0,},
                 //{4, -13, 2,},
                 //{7, 8, -5,},
-        };
+        //};
 
+
+        
         //double[][] resultMatrix = multiplyMatrices(x, y);
 
         //double[][] resultMatrix = sumMatrices (x, y);
@@ -173,7 +263,7 @@ public class Main {
 
         //printMatrix(resultMatrix);
 
-        printMatrix(inputMatrix(3,2));
+        //printMatrix(inputMatrix(3,2));
 
         //System.out.println("...............  " + getDeterminant (a));
     }
