@@ -46,6 +46,32 @@ public class Main {
         return minor;
     }
 
+    public static void printProductOfMatrices() {
+        System.out.println("Enter the number of rows of the first matrix: ");
+        int rows1 = inputPositiveInteger();
+        System.out.println("Enter the number of columns of the first matrix: ");
+        int columns1 = inputPositiveInteger();
+        System.out.println("Enter the first matrix: ");
+        double[][] mat1 = inputMatrix(rows1, columns1);
+        System.out.println("Enter the number of rows of the second matrix: ");
+        int rows2 = inputPositiveInteger();
+        while ( columns1 != rows2 ) {
+            System.out.println("The number of columns in the first matrix must be equal to the number of rows in the second!" +
+                                "\nTry again!");
+            rows2 = inputPositiveInteger();
+        }
+        System.out.println("Enter the number of columns of the second matrix: ");
+        int columns2 = inputPositiveInteger();
+        System.out.println("Enter the second matrix: ");
+        double[][] mat2 = inputMatrix(rows2, columns2);
+        System.out.println("\nThe first matrix is :  ");
+        printMatrix(mat1);
+        System.out.println("\nThe second matrix is :  ");
+        printMatrix(mat2);
+        System.out.println("\nThe product of the matrices is :  ");
+        printMatrix(multiplyMatrices(mat1, mat2));
+    }
+
     public static double[][] multiplyMatrices(double[][] mat1, double[][] mat2) {
         double[][] product = new double[mat1.length][mat2[0].length];
 
@@ -61,7 +87,7 @@ public class Main {
         return product;
     }
 
-    public static void printSumAndDifferenceOfMatrices( char operation) {         // "operation" determines whether there
+    public static void printSumNDifferOfMatrices( char operation) {         // "operation" determines whether there
         System.out.println("Enter the number of rows of the two matrices: ");     //  is addition '+'  or subtraction '-'
         int rows = inputPositiveInteger();
         System.out.println("Enter the number of columns of the two matrices: ");
@@ -158,17 +184,17 @@ public class Main {
         String choice = scan.next();
         switch (choice) {
             case "1" -> {
-                printSumAndDifferenceOfMatrices( '+');
+                printSumNDifferOfMatrices( '+');
                 showMainMenu();
             }
             case "2" -> {
-                printSumAndDifferenceOfMatrices( '-');
+                printSumNDifferOfMatrices( '-');
                 showMainMenu();
             }
-            //case "3" -> {
-                //multiplyMatrices();
-                //showMainMenu();
-            //}
+            case "3" -> {
+                printProductOfMatrices();
+                showMainMenu();
+            }
             //case "4" -> {
                 //showSquareMatrixMenu();
                 //showMainMenu();
