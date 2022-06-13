@@ -61,8 +61,8 @@ public class Main {
         return product;
     }
 
-    public static void sumMatrices() {
-        System.out.println("Enter the number of rows of the two matrices: ");
+    public static void printSumAndDifferenceOfMatrices( char operation) {         // "operation" determines whether there
+        System.out.println("Enter the number of rows of the two matrices: ");     //  is addition '+'  or subtraction '-'
         int rows = inputPositiveInteger();
         System.out.println("Enter the number of columns of the two matrices: ");
         int columns = inputPositiveInteger();
@@ -74,8 +74,16 @@ public class Main {
         printMatrix(mat1);
         System.out.println("\nThe second matrix is :  ");
         printMatrix(mat2);
-        System.out.println("\nThe sum of the matrices is :  ");
-        printMatrix(sumMatrices(mat1, mat2));
+        switch (operation) {
+            case '+' -> {
+                System.out.println("\nThe sum of the matrices is :  ");
+                printMatrix(sumMatrices(mat1, mat2));
+            }
+            case '-' -> {
+                System.out.println("\nThe difference of the matrices is :  ");
+                printMatrix(subtractMatrices(mat1, mat2));
+            }
+        }
     }
 
     public static double[][] sumMatrices(double[][] mat1, double[][] mat2) {
@@ -88,23 +96,6 @@ public class Main {
         }
 
         return sum;
-    }
-
-    public static void subtractMatrices() {
-        System.out.println("Enter the number of rows of the two matrices: ");
-        int rows = inputPositiveInteger();
-        System.out.println("Enter the number of columns of the two matrices: ");
-        int columns = inputPositiveInteger();
-        System.out.println("Enter the first matrix: ");
-        double[][] mat1 = inputMatrix(rows, columns);
-        System.out.println("Enter the second matrix: ");
-        double[][] mat2 = inputMatrix(rows, columns);
-        System.out.println("\nThe first matrix is :  ");
-        printMatrix(mat1);
-        System.out.println("\nThe second matrix is :  ");
-        printMatrix(mat2);
-        System.out.println("\nThe difference of the matrices is :  ");
-        printMatrix(subtractMatrices(mat1, mat2));
     }
 
     public static double[][] subtractMatrices(double[][] mat1, double[][] mat2) {
@@ -167,11 +158,11 @@ public class Main {
         String choice = scan.next();
         switch (choice) {
             case "1" -> {
-                sumMatrices();
+                printSumAndDifferenceOfMatrices( '+');
                 showMainMenu();
             }
             case "2" -> {
-                subtractMatrices();
+                printSumAndDifferenceOfMatrices( '-');
                 showMainMenu();
             }
             //case "3" -> {
