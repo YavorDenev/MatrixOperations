@@ -4,6 +4,25 @@ public class Main {
 
     static Scanner scan = new Scanner(System.in);
 
+    public static void printDeterminant(double[][] SquareMat) {
+        System.out.println("\nThe determinant is :  " + getDeterminant(SquareMat));
+    }
+
+    public static void printInverseMatrix(double[][] SquareMat) {
+        if (getDeterminant(SquareMat) == 0) {
+            System.out.println("\nThis matrix has no inverse.");
+        } else {
+            System.out.println("\nThe inverse matrix is : ");
+            printMatrix(getInverseMatrix(SquareMat));
+        }
+    }
+
+    public static void checkForIdentity(double[][] SquareMat) {
+        double det = getDeterminant(SquareMat);
+        String s = (det == 0) ? "NOT " : "";
+        System.out.println("\nThis matrix can " + s + "be converted to identity matrix (I)");
+    }
+
     public static double[][] getInverseMatrix(double[][] mat) {       // using the adjoint matrix
         double det = getDeterminant(mat);
         double[][] invMatrix = new double[mat.length][mat.length];
@@ -22,8 +41,7 @@ public class Main {
 
         if (mat.length == 1) {
             det = mat[0][0];
-        }
-        else {
+        } else {
             for (int i = 0; i < mat[0].length; i++) {
                 det += mat[0][i] * Math.pow(-1, i) * getDeterminant(getMinor(mat, 0, i));
             }
@@ -46,6 +64,53 @@ public class Main {
         return minor;
     }
 
+    public static void enterChoiceForSquareMatrix(double[][] SquareMat) {
+        System.out.print("Enter 1, 2, 3, 4 or 5 ... ");
+        String choice = scan.next();
+        switch (choice) {
+            case "1" -> {
+                printDeterminant(SquareMat);
+                showSquareMatrixMenu(SquareMat);
+            }
+            case "2" -> {
+                printInverseMatrix(SquareMat);
+                showSquareMatrixMenu(SquareMat);
+            }
+            case "3" -> {
+                checkForIdentity(SquareMat);
+                showSquareMatrixMenu(SquareMat);
+            }
+            case "4" -> {
+                showMainMenu();
+            }
+            case "5" -> System.out.println("Good bye!");
+            default -> {
+                System.out.println("Invalid input. Try again!");
+                enterChoiceForSquareMatrix(SquareMat);
+            }
+        }
+    }
+
+    public static void showSquareMatrixMenu(double[][] SquareMat) {
+        System.out.println("\nWhat do you want to do with the matrix? " +
+                "\n\t1. Calculation of the determinant;" +
+                "\n\t2. Finding the inverse matrix;" +
+                "\n\t3. Check whether the matrix can be converted to identity matrix (I);" +
+                "\n\t4. Return to main menu;" +
+                "\n\t5. Exit.");
+        enterChoiceForSquareMatrix(SquareMat);
+    }
+
+    public static void inputSquareMatrix() {
+        System.out.println("Enter the number of rows and columns of the matrix: ");
+        int num = inputPositiveInteger();
+        System.out.println("Enter the matrix: ");
+        double[][] SquareMat = inputMatrix(num, num);
+        System.out.println("\nThe matrix is :  ");
+        printMatrix(SquareMat);
+        showSquareMatrixMenu(SquareMat);
+    }
+
     public static void printProductOfMatrices() {
         System.out.println("Enter the number of rows of the first matrix: ");
         int rows1 = inputPositiveInteger();
@@ -55,9 +120,9 @@ public class Main {
         double[][] mat1 = inputMatrix(rows1, columns1);
         System.out.println("Enter the number of rows of the second matrix: ");
         int rows2 = inputPositiveInteger();
-        while ( columns1 != rows2 ) {
+        while (columns1 != rows2) {
             System.out.println("The number of columns in the first matrix must be equal to the number of rows in the second!" +
-                                "\nTry again!");
+                    "\nTry again!");
             rows2 = inputPositiveInteger();
         }
         System.out.println("Enter the number of columns of the second matrix: ");
@@ -87,8 +152,8 @@ public class Main {
         return product;
     }
 
-    public static void printSumNDifferOfMatrices( char operation) {         // "operation" determines whether there
-        System.out.println("Enter the number of rows of the two matrices: ");     //  is addition '+'  or subtraction '-'
+    public static void printSumNDifferOfMatrices(char operation) {               // "operation" determines whether there
+        System.out.println("Enter the number of rows of the two matrices: ");    //  is addition '+'  or subtraction '-'
         int rows = inputPositiveInteger();
         System.out.println("Enter the number of columns of the two matrices: ");
         int columns = inputPositiveInteger();
@@ -158,15 +223,25 @@ public class Main {
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
                 System.out.printf("row %2d, col %2d  :  ", (i + 1), (j + 1));
-                matrix[i][j] = scan.nextDouble();
+                matrix[i][j] = inputDouble();
             }
         }
 
         return matrix;
     }
 
+    public static double inputDouble() {
+        while (!(scan.hasNextDouble())) {
+            System.out.println("Invalid input. Try again!");
+            String s = scan.next();
+        }
+        double num = scan.nextDouble();
+
+        return num;
+    }
+
     public static int inputPositiveInteger() {
-        while ( ! (scan.hasNextInt()) ) {
+        while (!(scan.hasNextInt())) {
             System.out.println("Invalid input. Try again!");
             String s = scan.next();
         }
@@ -184,21 +259,20 @@ public class Main {
         String choice = scan.next();
         switch (choice) {
             case "1" -> {
-                printSumNDifferOfMatrices( '+');
+                printSumNDifferOfMatrices('+');
                 showMainMenu();
             }
             case "2" -> {
-                printSumNDifferOfMatrices( '-');
+                printSumNDifferOfMatrices('-');
                 showMainMenu();
             }
             case "3" -> {
                 printProductOfMatrices();
                 showMainMenu();
             }
-            //case "4" -> {
-                //showSquareMatrixMenu();
-                //showMainMenu();
-            //}
+            case "4" -> {
+                inputSquareMatrix();
+            }
             case "5" -> System.out.println("Good bye!");
             default -> {
                 System.out.println("Invalid input. Try again!");
@@ -220,68 +294,29 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("\nThis is a simple matrix calculator.");
         showMainMenu();
-
-
-        //double[][] a = {
-                //{ 5, 5, 0, 1, 0},           // det = -2040
-                //{ 5, -1, 0, 3, 3},
-                //{ 2, 2, 6, 0, 0},
-                //{ 0, 7, 0, 9, 0},
-                //{ 0, 0, 0, 0, 1},
-
-                //{0, 0, 2,},                 //   det = -6
-                //{2, 1, 4,},
-                //{3, 0, 0,},
-
-                //{0, 1, 2,},                 //   det = 12
-                //{0, 0, 4,},
-                //{3, 0, 0,},
-
-                //{10, 15, 77, 5, 0, 72,},      //   det = -76953
-                //{20, 57, 30, 6, 2, 3,},
-                //{37, 56, 85, 3, 3, 4,},
-                //{5, 3, 11, 2, 4, 5,},
-                //{0, 1, 2, 3, 5, 6,},
-                //{1, 2, 3, 4, 5, 7,},
-
-                //{1, 2,},                   //   det = -2
-                //{3, 4,},
-
-                //{9}                          //   det = 9
-        //};
-
-        //double[][] x = {
-                //{-99, -99.9, -99,},
-                //{89, -3, 1,},
-                //{44, -13, 12,},
-                //{6, 8, 1,},
-        //};
-
-        //double[][] y = {
-                //{99, 88.33, 3, 54, 5,},
-                //{99, 6, 0, 53, 22,},
-                //{99, 9, 8, -73, -2,},
-
-                //{2, -6, -3,},
-                //{12, -11, 0,},
-                //{4, -13, 2,},
-                //{7, 8, -5,},
-        //};
-
-
-        
-        //double[][] resultMatrix = multiplyMatrices(x, y);
-
-        //double[][] resultMatrix = sumMatrices (x, y);
-
-        //double[][] resultMatrix = subtractMatrices (x, y);
-
-        //double[][] resultMatrix = getInverseMatrix (a);
-
-        //printMatrix(resultMatrix);
-
-        //printMatrix(inputMatrix(3,2));
-
-        //System.out.println("...............  " + getDeterminant (a));
     }
 }
+
+//{ 5, 5, 0, 1, 0},           // det = -2040
+//{ 5, -1, 0, 3, 3},
+//{ 2, 2, 6, 0, 0},
+//{ 0, 7, 0, 9, 0},
+//{ 0, 0, 0, 0, 1},
+
+//{0, 0, 2,},                 //   det = -6
+//{2, 1, 4,},
+//{3, 0, 0,},
+
+//{0, 1, 2,},                 //   det = 12
+//{0, 0, 4,},
+//{3, 0, 0,},
+
+//{10, 15, 77, 5, 0, 72,},      //   det = -76953
+//{20, 57, 30, 6, 2, 3,},
+//{37, 56, 85, 3, 3, 4,},
+//{5, 3, 11, 2, 4, 5,},
+//{0, 1, 2, 3, 5, 6,},
+//{1, 2, 3, 4, 5, 7,},
+
+//{1, 2,},                   //   det = -2
+//{3, 4,},
