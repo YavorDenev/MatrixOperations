@@ -80,9 +80,7 @@ public class Main {
                 checkForIdentity(SquareMat);
                 showSquareMatrixMenu(SquareMat);
             }
-            case "4" -> {
-                showMainMenu();
-            }
+            case "4" -> showMainMenu();
             case "5" -> System.out.println("Good bye!");
             default -> {
                 System.out.println("Invalid input. Try again!");
@@ -92,17 +90,19 @@ public class Main {
     }
 
     public static void showSquareMatrixMenu(double[][] SquareMat) {
-        System.out.println("\nWhat do you want to do with the matrix? " +
-                "\n\t1. Calculation of the determinant;" +
-                "\n\t2. Finding the inverse matrix;" +
-                "\n\t3. Check whether the matrix can be converted to identity matrix (I);" +
-                "\n\t4. Return to main menu;" +
-                "\n\t5. Exit.");
+        System.out.println("""
+
+                What do you want to do with the matrix?
+                \t1. Calculation of the determinant;
+                \t2. Finding the inverse matrix;
+                \t3. Check whether the matrix can be converted to identity matrix (I);
+                \t4. Return to main menu;
+                \t5. Exit.""");
         enterChoiceForSquareMatrix(SquareMat);
     }
 
     public static void inputSquareMatrix() {
-        System.out.println("Enter the number of rows and columns of the matrix: ");
+        System.out.println("\nEnter the number of rows and columns of the matrix: ");
         int num = inputPositiveInteger();
         System.out.println("Enter the matrix: ");
         double[][] SquareMat = inputMatrix(num, num);
@@ -112,7 +112,7 @@ public class Main {
     }
 
     public static void printProductOfMatrices() {
-        System.out.println("Enter the number of rows of the first matrix: ");
+        System.out.println("\nEnter the number of rows of the first matrix: ");
         int rows1 = inputPositiveInteger();
         System.out.println("Enter the number of columns of the first matrix: ");
         int columns1 = inputPositiveInteger();
@@ -152,8 +152,8 @@ public class Main {
         return product;
     }
 
-    public static void printSumNDifferOfMatrices(char operation) {               // "operation" determines whether there
-        System.out.println("Enter the number of rows of the two matrices: ");    //  is addition '+'  or subtraction '-'
+    public static void printSumNDifferOfMatrices(char operation) {                // "operation" determines whether there
+        System.out.println("\nEnter the number of rows of the two matrices: ");   //  is addition '+'  or subtraction '-'
         int rows = inputPositiveInteger();
         System.out.println("Enter the number of columns of the two matrices: ");
         int columns = inputPositiveInteger();
@@ -233,17 +233,16 @@ public class Main {
     public static double inputDouble() {
         while (!(scan.hasNextDouble())) {
             System.out.println("Invalid input. Try again!");
-            String s = scan.next();
+            scan.next();
         }
-        double num = scan.nextDouble();
 
-        return num;
+        return scan.nextDouble();
     }
 
     public static int inputPositiveInteger() {
         while (!(scan.hasNextInt())) {
             System.out.println("Invalid input. Try again!");
-            String s = scan.next();
+            scan.next();
         }
         int num = scan.nextInt();
         while (num < 1) {
@@ -270,9 +269,7 @@ public class Main {
                 printProductOfMatrices();
                 showMainMenu();
             }
-            case "4" -> {
-                inputSquareMatrix();
-            }
+            case "4" -> inputSquareMatrix();
             case "5" -> System.out.println("Good bye!");
             default -> {
                 System.out.println("Invalid input. Try again!");
@@ -282,12 +279,14 @@ public class Main {
     }
 
     public static void showMainMenu() {
-        System.out.println("\nWhat is your choice? " +
-                "\n\t1. Sum of two matrices;" +
-                "\n\t2. Difference of two matrices;" +
-                "\n\t3. Product of two matrices;" +
-                "\n\t4. Square matrix operations;" +
-                "\n\t5. Exit.");
+        System.out.println("""
+
+                What is your choice?
+                \t1. Sum of two matrices;
+                \t2. Difference of two matrices;
+                \t3. Product of two matrices;
+                \t4. Square matrix operations;
+                \t5. Exit.""");
         enterChoice();
     }
 
