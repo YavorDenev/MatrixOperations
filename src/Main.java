@@ -80,8 +80,9 @@ public class Main {
                 checkForIdentity(SquareMat);
                 showSquareMatrixMenu(SquareMat);
             }
-            case "4" -> showMainMenu();
-            case "5" -> System.out.println("Good bye!");
+            case "4" -> inputSquareMatrix();
+            case "5" -> showMainMenu();
+            case "6" -> System.out.println("Good bye!");
             default -> {
                 System.out.println("Invalid input. Try again!");
                 enterChoiceForSquareMatrix(SquareMat);
@@ -95,9 +96,10 @@ public class Main {
                 What do you want to do with the matrix?
                 \t1. Calculation of the determinant;
                 \t2. Finding the inverse matrix;
-                \t3. Check whether the matrix can be converted to identity matrix (I);
-                \t4. Return to main menu;
-                \t5. Exit.""");
+                \t3. Checking whether the matrix can be converted to identity matrix (I);
+                \t4. Entering new square matrix;
+                \t5. Return to main menu;
+                \t6. Exit.""");
         enterChoiceForSquareMatrix(SquareMat);
     }
 
