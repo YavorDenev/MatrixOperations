@@ -29,7 +29,7 @@ public class Main {
 
         for (int i = 0; i < mat.length; i++) {
             for (int j = 0; j < mat.length; j++) {
-                invMatrix[i][j] = Math.pow(-1, (i + j)) * getDeterminant(getMinor(mat, j, i)) / det;
+                invMatrix[i][j] = Math.pow(-1, (i + j)) * getDeterminant(getMinorMatrix(mat, j, i)) / det;
             }
         }
 
@@ -43,14 +43,14 @@ public class Main {
             det = mat[0][0];
         } else {
             for (int i = 0; i < mat[0].length; i++) {
-                det += mat[0][i] * Math.pow(-1, i) * getDeterminant(getMinor(mat, 0, i));
+                det += mat[0][i] * Math.pow(-1, i) * getDeterminant(getMinorMatrix(mat, 0, i));
             }
         }
 
         return det;
     }
 
-    public static double[][] getMinor(double[][] mat, int row, int column) {   // returns minor matrix of mat for i=row and j=column
+    public static double[][] getMinorMatrix(double[][] mat, int row, int column) {   // returns minor matrix of mat for i=row and j=column
         double[][] minor = new double[mat.length - 1][mat.length - 1];
 
         for (int i = 0; i < mat.length - 1; i++) {
